@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Person
 {
-    private String name;
+    private final String name;
     private final LocalDate birthDate;
     private final LocalDate deathDate;
 
@@ -18,9 +18,10 @@ public class Person
         String[] parts = csvLine.split(",", -1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate birthDate = LocalDate.parse(parts[1], formatter);
-        LocalDate deathDate = LocalDate.parse(parts[2], formatter);
+        LocalDate deathDate = !parts[2].equals(" ") ? LocalDate.parse(parts[2], formatter):null;
         return new Person(parts[0], birthDate, deathDate);
     }
+
 
     @Override
     public String toString() {
